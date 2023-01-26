@@ -7,6 +7,12 @@ from 1 and going up to i-1. The inner loop uses the values from the previous row
 values of the current row, and appends the resulting value to the current row. After each inner loop, the current 
 row is appended to the triangle list. 
 Finally, the function returns the triangle list, which contains the full Pascal's triangle.
+
+The first function is the same as the previous solution. The second function print_triangle takes one argument 
+triangle that is a list of lists of integers and print the triangle in the format [1] [1,1] [1,2,1] etc.
+
+And in the last if name == "main" block, it will call the print_triangle function and pass the pascal_triangle 
+function result as an argument.
 '''
 
 def pascal_triangle(n):
@@ -20,4 +26,13 @@ def pascal_triangle(n):
         row.append(1)
         triangle.append(row)
     return triangle
-print(pascal_triangle(10))
+
+def print_triangle(triangle):
+    """
+    Print the triangle
+    """
+    for row in triangle:
+        print("[{}]".format(",".join([str(x) for x in row])))
+
+if __name__ == "__main__":
+    print_triangle(pascal_triangle(5))
