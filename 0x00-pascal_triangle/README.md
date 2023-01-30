@@ -11,7 +11,7 @@ Output
 A list of lists of integers representing the Pascal's triangle of n.
 An empty list if n <= 0
 Example
-Copy code
+
     '''>>> pascal_triangle(5)
 [[1], [1, 1], [1, 2, 1], [1, 3, 3, 1], [1, 4, 6, 4, 1]]'''
 
