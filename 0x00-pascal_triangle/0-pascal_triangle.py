@@ -28,10 +28,3 @@ def pascal_triangle(n):
         row.append(1)
         triangle.append(row)
     return triangle
-
-
-#!/usr/bin/python3
-"""0-pascal_triangle."""
-
-triangle = list()
-triangle.append([1])
