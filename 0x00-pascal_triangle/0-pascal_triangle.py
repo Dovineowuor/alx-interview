@@ -1,3 +1,5 @@
+#!/bin/env python
+
 '''
 This function first checks if the input n is less than or equal to 0, and if so, it returns an empty list. 
 Otherwise, it initializes a variable triangle with a single list containing the number 1, which represents 
