@@ -1,3 +1,4 @@
+# 0-stats.py
 import sys
 import signal
 
@@ -32,4 +33,3 @@ for line in sys.stdin:
         for status, count in sorted(status_codes.items()):
             if count > 0:
                 print("{}: {}".format(status, count))
-
