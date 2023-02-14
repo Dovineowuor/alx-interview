@@ -32,4 +32,4 @@ for line in sys.stdin:
         print("File size: ", total_size)
         for status, count in sorted(status_codes.items()):
             if count > 0:
-                print("{}: {}".format(status, count))
+                print("{}:{}".format(status, count))
