@@ -1,34 +1,56 @@
+# 0-generator.py
+import random
+import time
+
+status_codes = [200, 301, 400, 401, 403, 404, 405, 500]
+
+def generate_log_line():
+    ip_address = ".".join(str(random.randint(0, 255)) for i in range(4))
+    date = time.strftime("%d/%b/%Y:%H:%M:%S +0000", time.gmtime())
+    method = "GET"
+    endpoint = "/projects/260"
+    http_version = "HTTP/1.1"
+    status_code = str(random.choice(status_codes))
+    file_size = str(random.randint(0, 10000))
+    log_line = f"{ip_address} - [{date}] \"{method} {endpoint} {http_version}\" {status_code} {file_size}"
+    return log_line
+
+while True:
+    print(generate_log_line())
+    time.sleep(0.5)
+
+# 0-stats.py
 import sys
 import signal
 
 def signal_handler(signal, frame):
-    print("File size: ", total_file_size)
-    print("Status code metrics:")
-    for status_code in sorted(status_code_counts.keys()):
-        print("{}: {}".format(status_code, status_code_counts[status_code]))
+    print("File size: ", total_size)
+    for status, count in sorted(status_codes.items()):
+        if count > 0:
+            print("{}: {}".format(status, count))
     sys.exit(0)
 
 signal.signal(signal.SIGINT, signal_handler)
 
-total_file_size = 0
-status_code_counts = {}
-line_count = 0
+total_size = 0
+status_codes = {200: 0, 301: 0, 400: 0, 401: 0, 403: 0, 404: 0, 405: 0, 500: 0}
+lines_processed = 0
 
 for line in sys.stdin:
-    parts = line.strip().split()
-    if len(parts) != 5:
+    lines_processed += 1
+    elements = line.split()
+    try:
+        status = int(elements[-2])
+        size = int(elements[-1])
+    except (ValueError, IndexError):
         continue
-    status_code = int(parts[4])
-    if status_code not in [200, 301, 400, 401, 403, 404, 405, 500]:
-        continue
-    total_file_size += int(parts[5])
-    line_count += 1
-    if status_code in status_code_counts:
-        status_code_counts[status_code] += 1
-    else:
-        status_code_counts[status_code] = 1
-    if line_count % 10 == 0:
-        print("File size: ", total_file_size)
-        print("Status code metrics:")
-        for status_code in sorted(status_code_counts.keys()):
-            print("{}: {}".format(status_code, status_code_counts[status_code]))
+
+    if status in status_codes:
+        status_codes[status] += 1
+        total_size += size
+
+    if lines_processed % 10 == 0:
+        print("File size: ", total_size)
+        for status, count in sorted(status_codes.items()):
+            if count > 0:
+                print("{}: {}".format(status, count))
