@@ -1,3 +1,6 @@
+'''
+rotate_2d_matrix(matrix)  function rotates a matrix
+'''
 def rotate_2d_matrix(matrix):
     n = len(matrix)
     # Transpose the matrix
