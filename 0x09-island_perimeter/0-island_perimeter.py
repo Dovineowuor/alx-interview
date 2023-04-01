@@ -24,5 +24,3 @@ def island_perimeter(grid):
                               for r, k in zip(check, idx)])
                 
     return (count)
-
-print('\n')
