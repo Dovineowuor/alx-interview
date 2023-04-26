@@ -1,20 +1,31 @@
 #!/usr/bin/node
-const util = require('util');
-const request = util.promisify(require('request'));
-const filmID = process.argv[2];
-
-async function starwarsCharacters (filmId) {
-  const endpoint = 'https://swapi-api.hbtn.io/api/films/' + filmId;
-  let response = await (await request(endpoint)).body;
-  response = JSON.parse(response);
-  const characters = response.characters;
-
-  for (let i = 0; i < characters.length; i++) {
-    const urlCharacter = characters[i];
-    let character = await (await request(urlCharacter)).body;
-    character = JSON.parse(character);
-    console.log(character.name);
-  }
+// finding characters of a movie
+const request = require('request');
+const myUrl = 'https://swapi-api.alx-tools.com/api/films/';
+const myInputs = process.argv[2];
+function myRequster () {
+  return new Promise((resolve, reject) => {
+    request.get(myUrl + myInputs, async (err, req, res) => {
+      if (err) {
+        reject(err);
+      }
+      if (req.statusCode === 200) {
+        const users = await JSON.parse(res).characters;
+        resolve(characters(users, 0));
+      }
+    });
+  });
 }
 
-starwarsCharacters(filmID);
+function characters (info, j) {
+  if (j < info.length) {
+    request.get(info[j], async (err1, req1, res1) => {
+      if (err1) console.log(err1);
+      if (req1.statusCode === 200) {
+        console.log(await JSON.parse(res1).name);
+        characters(info, j + 1);
+      }
+    });
+  }
+}
+myRequster();
