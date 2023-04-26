@@ -1,4 +1,4 @@
-# alx-interview
+# ALX-INTERVIEW
 
 This repository contains a collection of projects that showcase my skills and abilities in various programming concepts and languages. Each project is designed to demonstrate my understanding of a specific topic and my ability to apply that knowledge to solve problems.
 
